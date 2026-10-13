@@ -16,8 +16,8 @@ function raizQuadrada(n) {
 function restoDivisao(dividendo, divisor) { return dividendo % divisor; }
 function fatorial(n) {
   if (n < 0) throw new Error('Fatorial não é definido para números negativos.');
-  if (n === 0 || n === 1) return 1;
-  let resultado = 1;
+  // Stryker disable next-line ConditionalExpression,LogicalOperator: mutante equivalente (o laço já devolve 1 para n = 0 e n = 1)
+  if (n === 0 || n === 1) return 1;  let resultado = 1;
   for (let i = 2; i <= n; i++) { resultado *= i; }
   return resultado;
 }
@@ -81,11 +81,13 @@ function fibonacci(n) { // Retorna o n-ésimo termo
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
 function produtoArray(numeros) {
-  if (numeros.length === 0) return 1;
-  return numeros.reduce((acc, val) => acc * val, 1);
+  // Stryker disable next-line ConditionalExpression: mutante equivalente (reduce com valor inicial 1 já devolve 1)
+  if (numeros.length === 0) return 1;  return numeros.reduce((acc, val) => acc * val, 1);
 }
 function clamp(valor, min, max) {
+    // Stryker disable next-line EqualityOperator: mutante equivalente (se valor === min, retornar min ou valor é igual)
   if (valor < min) return min;
+  // Stryker disable next-line EqualityOperator: mutante equivalente (se valor === max, retornar max ou valor é igual)
   if (valor > max) return max;
   return valor;
 }
